@@ -98,4 +98,42 @@ In this code:
 * A long blink is achieved with 1000 milliseconds on and 1000 milliseconds off.
 * A 1-second pause is added after the pattern to make it more distinguishable before it repeats.
 
-<figure><img src=".gitbook/assets/LED3.gif" alt=""><figcaption></figcaption></figure>
+<figure><img src=".gitbook/assets/LED3.gif" alt=""><figcaption><p>Blink short-short-long</p></figcaption></figure>
+
+## Blink randomly
+
+To make the LED blink randomly, you can use the `random()` function in Arduino to generate random delay times. Here's an example code:
+
+{% code title="Blink randomly" lineNumbers="true" %}
+```arduino
+#define LED_PIN 13  
+
+void setup()
+{
+  pinMode(LED_PIN, OUTPUT);
+  randomSeed(analogRead(0)); // Seed the random number generator
+}
+
+void loop()
+{
+  // turn the LED on (HIGH is the voltage level)
+  digitalWrite(LED_PIN, HIGH);
+  int onTime = random(100, 1000); // Random on time between 100 and 1000 milliseconds
+  delay(onTime); 
+
+  // turn the LED off by making the voltage LOW
+  digitalWrite(LED_PIN, LOW);
+  int offTime = random(100, 1000); // Random off time between 100 and 1000 milliseconds
+  delay(offTime);
+}
+
+```
+{% endcode %}
+
+In this code:
+
+* `randomSeed(analogRead(0))` initializes the random number generator with a seed value based on an analog read from pin 0, which helps to ensure the randomness each time the Arduino is reset.
+* `random(100, 1000)` generates a random delay time between 100 and 1000 milliseconds for both the on and off states of the LED. You can adjust the range of the random values to fit your needs.
+
+<figure><img src=".gitbook/assets/LED4.gif" alt=""><figcaption><p>Blink randomly</p></figcaption></figure>
+
