@@ -2,6 +2,7 @@
 
 ## LED Task
 
+{% code title="Blink once in a second" lineNumbers="true" fullWidth="false" %}
 ```arduino
 #define LED_PIN 13  
 
@@ -20,5 +21,8 @@ void loop()
   delay(1000); // Wait for 1000 millisecond(s)
 }
 ```
+{% endcode %}
 
-<figure><img src=".gitbook/assets/LED.gif" alt=""><figcaption></figcaption></figure>
+<figure><img src=".gitbook/assets/LED.gif" alt=""><figcaption><p>Simulation of the LED task</p></figcaption></figure>
+
+\#
