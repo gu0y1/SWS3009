@@ -7,7 +7,7 @@
 This code is from Prof's slides. We implemented the LED connecting to GND and Pin 13 on Arduino to replicate the expected performace.
 
 {% code title="Blink once in two seconds" lineNumbers="true" fullWidth="false" %}
-```arduino
+```cpp
 #define LED_PIN 13  
 
 void setup()
@@ -33,7 +33,7 @@ void loop()
 
 To make the LED blink twice in a second, you need to change the delay times to 250 milliseconds. This will ensure that the LED turns on and off twice within one second. Here's the modified code:
 
-<pre class="language-arduino" data-title="Blink twice in a second" data-line-numbers><code class="lang-arduino"><strong>#define LED_PIN 13  
+<pre class="language-cpp" data-title="Blink twice in a second" data-line-numbers><code class="lang-cpp"><strong>#define LED_PIN 13  
 </strong>
 void setup()
 {
@@ -58,7 +58,7 @@ void loop()
 To make the LED blink in a short-short-long pattern, you can define the short and long delay times and sequence the blinks accordingly. Here's how you can achieve this:
 
 {% code title="Blink short-short-long" lineNumbers="true" %}
-```arduino
+```cpp
 #define LED_PIN 13  
 
 void setup()
@@ -105,7 +105,7 @@ In this code:
 To make the LED blink randomly, you can use the `random()` function in Arduino to generate random delay times. Here's an example code:
 
 {% code title="Blink randomly" lineNumbers="true" %}
-```arduino
+```cpp
 #define LED_PIN 13  
 
 void setup()
@@ -139,12 +139,13 @@ In this code:
 
 ## Serial Communication
 
-we will explore serial communication with Arduino and how to improve the readability of the received data for human users. We'll start with a basic code example and then discuss enhancements.
+we will explore serial communication with Arduino and how to improve the readability of the received data for our human users. We'll start with a basic code example and then discuss enhancements.
 
-#### Basic Serial Communication Code
+### Basic Serial Communication Code
 
 Here's the initial code for serial communication:
 
+{% code title="Serial Code (Basic)" lineNumbers="true" %}
 ```cpp
 void setup() {
   // put your setup code here, to run once:
@@ -163,6 +164,7 @@ void loop() {
   }
 }
 ```
+{% endcode %}
 
 This code sets up serial communication at a baud rate of 9600 and prints "Hello World!" when the program starts. In the `loop()` function, it checks if there is any data available to read from the serial buffer. If there is, it reads the incoming byte and prints it in both decimal and hexadecimal formats.
 
@@ -176,12 +178,13 @@ For example, if you send the character 'A' through the serial monitor, the progr
 Read: 65 0x41
 ```
 
-While `65` and `0x41` (hexadecimal representation) are correct, they are not immediately intuitive. We often want to see the actual character being sent for better understanding and debugging.
+While `65` and `0x41` (hexadecimal representation) are correct according to the [ASCII standard](https://www.ascii-code.com/), they are not immediately intuitive. We often want to see the actual character being sent for better understanding and debugging.
 
-#### Improving Readability
+### Improving Readability
 
 To make the data more human-readable, we can modify the code to print the character representation directly. Here is the improved version:
 
+{% code title="Serial Code (Improved)" lineNumbers="true" %}
 ```cpp
 void setup() {
   // put your setup code here, to run once:
@@ -202,6 +205,7 @@ void loop() {
   }
 }
 ```
+{% endcode %}
 
 #### Enhanced Explanation
 
@@ -217,14 +221,5 @@ This output shows:
 * The corresponding character `A`
 * The hexadecimal value `0x41`
 
-#### Summary
+## Ultrasonic Sensor
 
-By adding the character representation, the serial output becomes more readable and useful for debugging and learning purposes. This small enhancement helps students better understand the data being transmitted and received in serial communication.
-
-Remember to explain the importance of each format:
-
-* **Decimal**: Useful for understanding the numeric value.
-* **Character**: Essential for human readability, especially when dealing with text.
-* **Hexadecimal**: Often used in programming for its compact representation and alignment with binary data.
-
-Encouraging students to consider these aspects will help them write more intuitive and user-friendly code.
