@@ -60,3 +60,19 @@ Please download VNC from: [https://www.realvnc.com/en/connect/download/](https:/
 
 &#x20;If you encounter the “**Cannot currently show the desktop**” error while using VNC, you can resolve this issue by editing the `boot/config.txt` file on your Raspberry Pi. Please read the section 2 at: [https://www.comp.nus.edu.sg/\~guoyi/tutorial/cg2111a/ros-setup/](https://www.comp.nus.edu.sg/\~guoyi/tutorial/cg2111a/ros-setup/).
 
+## Milestone C6
+
+### C6.1 Running `rpicam-hello`
+
+You should see if your RPi Camera can work correctly:
+
+<figure><img src=".gitbook/assets/image (48).png" alt=""><figcaption><p>Bitvise Terminal</p></figcaption></figure>
+
+### C6.1 Running `rpicam-jpeg --output test.jpg`
+
+
+
+<figure><img src=".gitbook/assets/image (49).png" alt=""><figcaption><p>Bitvise Terminal</p></figcaption></figure>
+
+You may see the test picture from `/home/pi/test.jpg`.
+
