@@ -1,42 +1,48 @@
+---
+description: Debugging Material
+---
+
 # Pi Setup Guide
 
-## Milestone C4
+This material is designed as a supplementary material for Day 1's Lab Hands out, you cannot use this material without reading the hands out. Quite the opposite, you can only seek for help in this material if you encounter bugs when reading the hands out.
 
-### C1.10 WiFi Setting Up
+## <mark style="color:purple;">Milestone C4</mark>
 
-While you are writing the image into the SD card, please make sure your WiFi configurations are correct. Your rapsberry Pi should be able to connect to the WiFi when you first power it.
+### <mark style="color:purple;">C1.10</mark> Ensuring WiFi Configuration on Your Raspberry Pi
 
-### C2.2 Looking for the IP address of Raspberry Pi
+While writing the image to the SD card, ensure your WiFi configurations are correct. Your Raspberry Pi should be able to connect to WiFi upon its initial power-up.&#x20;
 
-If you are using Windows 10/11 or MacOS hotsport to provide WiFi, you can easily see the IP address of your Raspberry Pi (2.4GHz).
+### <mark style="color:purple;">C2.2</mark> Looking for the IP address of Raspberry Pi
+
+If you are using a Windows 10/11 or macOS hotspot to provide WiFi, you can easily view the IP address of your Raspberry Pi (2.4GHz).
 
 <figure><img src=".gitbook/assets/1719391966287.png" alt=""><figcaption><p>Win10 Hotspot Config Page</p></figcaption></figure>
 
-Although Raspberry Pi 4 is able to connect with 5.0GHz WiFi, the 2.4GHz has a higher compatibility to Rapsberry Pi.
+Although the Raspberry Pi 4 can connect to 5.0GHz WiFi, the 2.4GHz band offers higher compatibility with the Raspberry Pi.
 
-If you are using iPhone Hotspot, you may unable to get the IP address of your Raspberry Pi. Now please  use NetSetMan to enumerate the machines that connect with your iPhone and get the Ip address of the Raspberry Pi. (Your PC should connect to the iPhone's Hotspot!)
+If you are using an iPhone hotspot, you may be unable to get the IP address of your Raspberry Pi directly. In this case, use [NetSetMan](https://www.netsetman.com/en/freeware) to enumerate the devices connected to your iPhone and find the IP address of your Raspberry Pi. (Ensure your PC is connected to the iPhone's hotspot!)
 
 <figure><img src=".gitbook/assets/1719392777299.png" alt=""><figcaption><p>NetSetMan's Screenshot</p></figcaption></figure>
 
-### C3 Using SSH to skip the Setting Up using GUI
+### <mark style="color:purple;">C3</mark> Using SSH to skip the Setting Up using GUI
 
-In case you cannot using GUI mode of the Raspberry Pi or you do not have keyboard or mouse as peripheros, we use SSH to finish configuring of the Raspberry Pi.
+If you cannot use the GUI mode of the Raspberry Pi or do not have a keyboard or mouse as peripherals, you can use SSH to configure your Raspberry Pi.
 
-Make sure in C1.10, you have enabled SSH in OS Customisation section of Raspberry Pi Imager.
+Ensure that in C1.10, you have enabled SSH in the OS Customisation section of the Raspberry Pi Imager.
 
-To SSH, you need to connect your PC, your Raspberry Pi in the same network, and you know the IP address or the name of your Raspberry Pi.
+To use SSH, you need to connect your PC and Raspberry Pi to the same network and know the IP address or the hostname of your Raspberry Pi.
 
 ```shell-session
 ssh <username>@<RPi's name/RPi's IP Address>
 ```
 
-for me, the command is `ssh pi@sws3009` or `ssh pi@192.168.137.43`.
+for me, the SSH command is `ssh pi@sws3009` or `ssh pi@192.168.137.43`.
 
-You should enable the figerprint check and insert correct password to your Raspberry Pi (for securety reason, you will not see what you type in password session)
+You should enable fingerprint check and enter the correct password for your Raspberry Pi. For security reasons, you will not see what you type during the password entry session.
 
 <figure><img src=".gitbook/assets/1719394141153.png" alt=""><figcaption><p>SSH Connection to Raspberry Pi</p></figcaption></figure>
 
-Insert: `sudo raspi-config`, and click Enter, you should see a blue screen with options in a grey box:
+Then, run `sudo raspi-config`, and click Enter, you should see a blue screen with options in a grey box:
 
 <figure><img src=".gitbook/assets/1719395809785.png" alt=""><figcaption><p>Raspberry Pi 4 Configuration Tool</p></figcaption></figure>
 
@@ -46,29 +52,29 @@ Press the **Right** arrow key or press **Tab** to access the `<Select>` and `<Fi
 
 Select the "Interfaces" tab and enable:&#x20;
 
-* Camera\*
+* <mark style="color:orange;">Camera\*</mark>
 * SSH (you should have enabled)
 * VNC
 
-If you did not see the camera at this stage, it is OK! We will guide you in next stage.
+<mark style="color:orange;">If you did not see the camera at this stage, it is OK! We will guide you in next stage.</mark>
 
-You should reboot your Raspberry Pi after changing the above configuration, type `sudo reboot` to restart your Raspberry Pi.
+You should reboot your Raspberry Pi after changing the above configurations,  run `sudo reboot` to restart your Raspberry Pi.
 
-### C4.6 VNC Setting Up
+### <mark style="color:purple;">C4.6</mark> VNC Setting Up
 
 Please download VNC from: [https://www.realvnc.com/en/connect/download/](https://www.realvnc.com/en/connect/download/)
 
 &#x20;If you encounter the “**Cannot currently show the desktop**” error while using VNC, you can resolve this issue by editing the `boot/config.txt` file on your Raspberry Pi. Please read the section 2 at: [https://www.comp.nus.edu.sg/\~guoyi/tutorial/cg2111a/ros-setup/](https://www.comp.nus.edu.sg/\~guoyi/tutorial/cg2111a/ros-setup/).
 
-## Milestone C6
+## <mark style="color:purple;">Milestone C6</mark>
 
-### C6.1 Running `rpicam-hello`
+### <mark style="color:purple;">C6.1</mark> Running `rpicam-hello`
 
 You should see if your RPi Camera can work correctly:
 
 <figure><img src=".gitbook/assets/image (48).png" alt=""><figcaption><p>Bitvise Terminal</p></figcaption></figure>
 
-### C6.1 Running `rpicam-jpeg --output test.jpg`
+### <mark style="color:purple;">C6.2</mark> Running `rpicam-jpeg --output test.jpg`
 
 
 
