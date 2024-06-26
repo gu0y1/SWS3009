@@ -4,7 +4,7 @@ description: Debugging Material
 
 # Pi Setup Guide
 
-This material is designed as a supplementary material for Day 1's Lab Hands out, you cannot use this material without reading the hands out. Quite the opposite, you can only seek for help in this material if you encounter bugs when reading the hands out.
+This material is designed as supplementary to the Day 1 Lab Handout. You should not use this material without first reading the handout. Instead, refer to this material only if you encounter issues or bugs while following the handout.
 
 ## <mark style="color:purple;">Milestone C4</mark>
 
@@ -72,11 +72,72 @@ Please download VNC from: [https://www.realvnc.com/en/connect/download/](https:/
 
 You should see if your RPi Camera can work correctly:
 
-<figure><img src=".gitbook/assets/image (48).png" alt=""><figcaption><p>Bitvise Terminal</p></figcaption></figure>
+<figure><img src=".gitbook/assets/image (48).png" alt=""><figcaption><p>Bitvise Terminal (expected output)</p></figcaption></figure>
+
+However, if you see the following outputs, meaning your RPi Camera did NOT set up correctly yet.
+
+<figure><img src=".gitbook/assets/image.png" alt=""><figcaption><p>Bitvise Terminal (wrong response)</p></figcaption></figure>
+
+### <mark style="color:purple;">Set Up RPi Camera</mark>
+
+Unplug the power supply of the Raspberry Pi and unplug the RPi camera from your Raspberry Pi.&#x20;
+
+Plug in the Camera wire, note the metal surface should face to the SD Card end of your Raspberry Pi. Then power the Raspberry Pi.
+
+Run `vcgencmd get_camera` in the terminal, we expect the answer is:
+
+```
+supported=1 detected=1......
+```
+
+If you see this response, meaning your RPi Camera is ready and you can resume your work from <mark style="color:purple;">**C6.1**</mark>.
+
+However, if you see something like:
+
+```
+supported=0 detected=0, libcamera interfaces=0
+```
+
+Meaning that your Raspberry Pi is unable to detect and support the camera, we should manually add some code in configuration file:
+
+1.  Open the terminal and enter the following command:
+
+    ```bash
+    sudo nano /boot/config.txt
+    ```
+
+
+2.  Then add the following lines to the file:
+
+    ```txt
+    start_x=1
+    gpu_mem=128
+    ```
+
+    Save the file and exit (press `Ctrl+X`, then press `Y`, and finally press `Enter`).
+3.  **Restart the Raspberry Pi**: To apply the changes, restart your Raspberry Pi:
+
+    ```bash
+    sudo reboot
+    ```
+
+After restarting, you can test if the Pi Camera is working correctly by running the following command:
+
+```bash
+vcgencmd get_camera
+```
+
+If the camera is enabled correctly, you should see the following output:
+
+```txt
+supported=1 detected=1
+```
+
+You can resume your work from <mark style="color:purple;">**C6.1**</mark>.
 
 ### <mark style="color:purple;">C6.2</mark> Running `rpicam-jpeg --output test.jpg`
 
-
+By running the above commandm, you should see the following outputs from the terminal:
 
 <figure><img src=".gitbook/assets/image (49).png" alt=""><figcaption><p>Bitvise Terminal</p></figcaption></figure>
 
