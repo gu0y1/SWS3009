@@ -56,7 +56,7 @@ Select the "Interfaces" tab and enable:&#x20;
 * SSH (you should have enabled)
 * VNC
 
-<mark style="color:orange;">If you did not see the camera at this stage, it is OK! We will guide you in next stage.</mark>
+<mark style="color:orange;">If you did not see the camera at this stage, it is OK! We will guide you in</mark> [<mark style="color:purple;">**C6.1**</mark>](pi-setup-guide.md#c6.1-running-rpicam-hello)<mark style="color:orange;">.</mark>
 
 You should reboot your Raspberry Pi after changing the above configurations,  run `sudo reboot` to restart your Raspberry Pi.
 
@@ -87,7 +87,7 @@ Plug in the Camera wire, note the metal surface should face to the SD Card end o
 Run `vcgencmd get_camera` in the terminal, we expect the answer is:
 
 ```
-supported=1 detected=1......
+supported=1......
 ```
 
 If you see this response, meaning your RPi Camera is ready and you can resume your work from <mark style="color:purple;">**C6.1**</mark>.
@@ -103,7 +103,7 @@ Meaning that your Raspberry Pi is unable to detect and support the camera, we sh
 1.  Open the terminal and enter the following command:
 
     ```bash
-    sudo nano /boot/config.txt
+    sudo nano /boot/firmware/config.txt
     ```
 
 
@@ -130,7 +130,7 @@ vcgencmd get_camera
 If the camera is enabled correctly, you should see the following output:
 
 ```txt
-supported=1 detected=1
+supported=1......
 ```
 
 You can resume your work from <mark style="color:purple;">**C6.1**</mark>.
