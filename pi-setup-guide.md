@@ -28,7 +28,7 @@ If you are using an iPhone hotspot, you may be unable to get the IP address of y
 
 If you cannot use the GUI mode of the Raspberry Pi or do not have a keyboard or mouse as peripherals, you can use SSH to configure your Raspberry Pi.
 
-Ensure that in C1.10, you have enabled SSH in the OS Customisation section of the Raspberry Pi Imager.
+Ensure that in <mark style="color:purple;">**C1.10**</mark>, you have enabled SSH in the OS Customisation section of the Raspberry Pi Imager.
 
 To use SSH, you need to connect your PC and Raspberry Pi to the same network and know the IP address or the hostname of your Raspberry Pi.
 
@@ -83,6 +83,8 @@ However, if you see the following outputs, meaning your RPi Camera did NOT set u
 Unplug the power supply of the Raspberry Pi and unplug the RPi camera from your Raspberry Pi.&#x20;
 
 Plug in the Camera wire, note the metal surface should face to the SD Card end of your Raspberry Pi. Then power the Raspberry Pi.
+
+<figure><img src=".gitbook/assets/image (51).png" alt="" width="375"><figcaption><p>Correct connection</p></figcaption></figure>
 
 Run `vcgencmd get_camera` in the terminal, we expect the answer is:
 
@@ -142,4 +144,58 @@ By running the above commandm, you should see the following outputs from the ter
 <figure><img src=".gitbook/assets/image (49).png" alt=""><figcaption><p>Bitvise Terminal</p></figcaption></figure>
 
 You may see the test picture from `/home/pi/test.jpg`.
+
+### <mark style="color:purple;">C6.5</mark> Install Libraries
+
+While you run the python code, and see the error from Traceback, meaning you have not installed some libraries:
+
+<figure><img src=".gitbook/assets/image (52).png" alt=""><figcaption><p>No module named <code>cv2</code></p></figcaption></figure>
+
+To install the `cv2` library (OpenCV) in a virtual environment (venv) on a Raspberry Pi 4, follow these steps:
+
+1.  **Update and Upgrade the System**: First, ensure your system is up to date:
+
+    ```bash
+    sudo apt update
+    sudo apt upgrade
+    ```
+2.  **Install Dependencies**: OpenCV requires several dependencies. Install them using the following command:
+
+    ```bash
+    sudo apt install cmake gfortran libjpeg-dev libpng-dev libtiff-dev
+    sudo apt install libavcodec-dev libavformat-dev libswscale-dev libv4l-dev
+    sudo apt install libxvidcore-dev libx264-dev
+    sudo apt install libatlas-base-dev libblas-dev liblapack-dev
+    sudo apt install libhdf5-dev libhdf5-serial-dev libhdf5-103
+    sudo apt install libqtgui4 libqtwebkit4 libqt4-test python3-pyqt5
+    sudo apt install python3-dev
+    ```
+3.  **Create and Activate a Virtual Environment**: Create a new virtual environment and activate it:
+
+    ```bash
+    python3 -m venv opencv-env
+    source opencv-env/bin/activate
+    ```
+4.  **Install `pip` and `wheel`**: Ensure `pip` and `wheel` are installed and up to date in your virtual environment:
+
+    ```bash
+    pip install --upgrade pip
+    pip install wheel
+    ```
+5.  **Install OpenCV**: Install OpenCV in your virtual environment:
+
+    ```bash
+    pip install opencv-python-headless
+    ```
+
+    If you need the full OpenCV package with GUI support, you can install:
+
+    ```bash
+    pip install opencv-python
+    ```
+6.  **Verify the Installation**: Check if OpenCV is installed correctly by running a simple Python script:
+
+    ```bash
+    python -c "import cv2; print(cv2.__version__)"
+    ```
 
