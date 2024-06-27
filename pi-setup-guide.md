@@ -167,7 +167,7 @@ To install the `cv2` library (OpenCV) in a virtual environment (venv) on a Raspb
     sudo apt install libxvidcore-dev libx264-dev
     sudo apt install libatlas-base-dev libblas-dev liblapack-dev
     sudo apt install libhdf5-dev libhdf5-serial-dev libhdf5-103
-    sudo apt install libqtgui4 libqtwebkit4 libqt4-test python3-pyqt5
+    sudo apt install libqt5gui5 libqt5webkit5 libqt5test5
     sudo apt install python3-dev
     ```
 3.  **Create and Activate a Virtual Environment**: Create a new virtual environment and activate it:
