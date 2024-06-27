@@ -260,4 +260,82 @@ void loop() {
 
 You should download and implement the library in Arduino IDE in prior:
 
-* Download NewPing.h from&#x20;
+* Download NewPing.h from: [https://www.arduino.cc/reference/en/libraries/newping/](https://www.arduino.cc/reference/en/libraries/newping/)
+* Include the ZIP library in Arduino IDE: Sketch > Include Library > Add.ZIP Libraries
+
+<figure><img src=".gitbook/assets/image (53).png" alt="" width="375"><figcaption><p>Sketch > Include Library > Add.ZIP Libraries</p></figcaption></figure>
+
+Here is the code in your hands out, after including the headfiles, the code can be compiled correctly.
+
+{% code title="With Library" lineNumbers="true" %}
+```cpp
+#include <NewPing.h>
+
+#define TRIGGER_PIN  13  // Arduino pin tied to trigger pin on the ultrasonic sensor.
+#define ECHO_PIN     12  // Arduino pin tied to echo pin on the ultrasonic sensor.
+#define MAX_DISTANCE 200 // Maximum distance we want to ping for (in centimeters). Maximum sensor distance is rated at 400-500cm.
+
+NewPing sonar(TRIGGER_PIN, ECHO_PIN, MAX_DISTANCE); // NewPing setup of pins and maximum distance.
+
+void setup() {
+  Serial.begin(115200); // Open serial monitor at 115200 baud to see ping results.
+}
+
+void loop() {
+  delay(50);                     // Wait 50ms between pings (about 20 pings/sec). 29ms should be the shortest delay between pings.
+  Serial.print("Ping: ");
+  Serial.print(sonar.ping_cm()); // Send ping, get distance in cm and print result (0 = outside set distance range)
+  Serial.println("cm");
+}
+```
+{% endcode %}
+
+## DC Motor
+
+\[Additional Challenge] Write a program to control the brightness of LED using Serial Communication:
+
+```cpp
+// Define the LED pin
+const int ledPin = 13; // PWM pin
+int brightness = 0;
+
+void setup() {
+  // Initialize the LED pin as an output
+  pinMode(ledPin, OUTPUT);
+  
+  // Initialize serial communication at 9600 bits per second
+  Serial.begin(9600);
+  Serial.println("Serial Begin!");
+}
+
+void loop() {
+  // Check if any data is available to read
+  if (Serial.available() > 0) {
+    // Read the first incoming character
+    char startChar = Serial.read();
+    
+    // Check if it is a valid start character (assuming 'B' indicates the start of a brightness value)
+    if (startChar == 'B') {
+      // Read the following integer value
+      int newBrightness = Serial.parseInt();
+      
+      // Ensure the brightness value is within the valid range
+      newBrightness = constrain(newBrightness, 0, 255);
+      
+      // Update the brightness and set the LED brightness
+      brightness = newBrightness;
+      analogWrite(ledPin, brightness);
+      
+      // Print the received brightness value to the Serial Monitor
+      Serial.print("LED Brightness: ");
+      Serial.println(brightness);
+    }
+  }
+}
+
+```
+
+This way, the brightness will only be updated when a valid input starting with 'B' is received, avoiding unintentional changes when no new data is present.
+
+<figure><img src=".gitbook/assets/录制_2024_06_27_18_22_55_604.gif" alt=""><figcaption><p>Control the brightness of LED using Serial Communication</p></figcaption></figure>
+
