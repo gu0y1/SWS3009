@@ -199,3 +199,10 @@ To install the `cv2` library (OpenCV) in a virtual environment (venv) on a Raspb
     python -c "import cv2; print(cv2.__version__)"
     ```
 
+To install the `cv2` library (OpenCV) as system package on a Raspberry Pi 4, run:
+
+```sh
+sudo apt install python3-opencv
+```
+
+You may need download a xml file from: [https://github.com/opencv/opencv/raw/master/data/haarcascades/haarcascade\_frontalface\_default.xml](https://github.com/opencv/opencv/raw/master/data/haarcascades/haarcascade\_frontalface\_default.xml)
