@@ -223,3 +223,41 @@ This output shows:
 
 ## Ultrasonic Sensor
 
+### Equivalent Code without Library
+
+{% code title="Without Library" lineNumbers="true" %}
+```cpp
+const int trigPin = 12;
+const int echoPin = 11;
+
+float duration, distance;
+
+void setup() {
+  pinMode(trigPin, OUTPUT);
+  pinMode(echoPin, INPUT);
+  Serial.begin(9600);
+}
+
+void loop() {
+  digitalWrite(trigPin, LOW);
+  delayMicroseconds(2);
+  digitalWrite(trigPin, HIGH);
+  delayMicroseconds(10);
+  digitalWrite(trigPin, LOW);
+
+  duration = pulseIn(echoPin, HIGH);
+  distance = (duration*.0343)/2;
+  Serial.print("Distance: ");
+  Serial.println(distance);
+  delay(100);
+}
+```
+{% endcode %}
+
+<figure><img src=".gitbook/assets/录制_2024_06_27_14_29_33_726.gif" alt=""><figcaption><p>Ultrasonic Sensor Demo</p></figcaption></figure>
+
+### Equivalent Code with using Library
+
+You should download and implement the library in Arduino IDE in prior:
+
+* Download NewPing.h from&#x20;
