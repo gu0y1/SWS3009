@@ -6,11 +6,9 @@
 
 This code is from Prof's slides. We implemented the LED connecting to GND and Pin 13 on Arduino to replicate the expected performace.
 
-{% code title="Blink once in two seconds" lineNumbers="true" fullWidth="false" %}
-```cpp
-#define LED_PIN 13  
-
-void setup()
+<pre class="language-cpp" data-title="Blink once in two seconds" data-line-numbers data-full-width="false"><code class="lang-cpp">#define LED_PIN 13  
+<strong>
+</strong>void setup()
 {
   pinMode(LED_PIN, OUTPUT);
 }
@@ -24,8 +22,7 @@ void loop()
   digitalWrite(LED_PIN, LOW);
   delay(1000); // Wait for 1000 millisecond(s)
 }
-```
-{% endcode %}
+</code></pre>
 
 <figure><img src=".gitbook/assets/LED.gif" alt=""><figcaption><p>Blink once in two seconds</p></figcaption></figure>
 
@@ -292,7 +289,38 @@ void loop() {
 
 ## DC Motor
 
-\[Additional Challenge] Write a program to control the brightness of LED using Serial Communication:
+### LED Blinky
+
+{% code title="Blink_PWM.ino" lineNumbers="true" %}
+```cpp
+int ledPin = 9;    // LED connected to digital pin 9
+int brightness = 0; // Initial brightness
+int fadeAmount = 15; // Amount to change the brightness
+
+void setup() {
+  pinMode(ledPin, OUTPUT); // Set ledPin as an output
+}
+
+void loop() {
+  analogWrite(ledPin, brightness); // Set the brightness using PWM
+
+  brightness = brightness + fadeAmount; // Increase brightness
+
+  // Reverse the direction of the brightness change
+  if (brightness <= 0 || brightness >= 255) {
+    fadeAmount = -fadeAmount;
+  }
+
+  delay(30); // Delay for 30 milliseconds to control the speed of the change
+}
+```
+{% endcode %}
+
+<figure><img src=".gitbook/assets/录制_2024_06_28_16_00_43_555.gif" alt=""><figcaption><p>LED Blinky using PWM</p></figcaption></figure>
+
+### Additional Challenge
+
+Write a program to control the brightness of LED using Serial Communication:
 
 ```cpp
 // Define the LED pin
@@ -339,3 +367,196 @@ This way, the brightness will only be updated when a valid input starting with '
 
 <figure><img src=".gitbook/assets/录制_2024_06_27_18_22_55_604.gif" alt=""><figcaption><p>Control the brightness of LED using Serial Communication</p></figcaption></figure>
 
+## Challenge Questions
+
+### Ultrasonic & Interrupt
+
+Can you use an interrupt to turn on an LED based on the distance measured by the ultrasonic sensor?
+
+```cpp
+const int trigPin = 12;
+const int echoPin = 2; // Using pin 2 for interrupt
+const int ledPin = 7;
+const float thresholdDistance = 100.0; // Threshold distance in cm
+
+volatile unsigned long startTime;
+volatile unsigned long duration;
+volatile bool newMeasurement = false;
+
+void setup() {
+  pinMode(trigPin, OUTPUT);
+  pinMode(echoPin, INPUT);
+  pinMode(ledPin, OUTPUT);
+  Serial.begin(9600);
+
+  // Attach interrupt to echo pin
+  attachInterrupt(digitalPinToInterrupt(echoPin), echoISR, CHANGE);
+}
+
+void loop() {
+  // Trigger the ultrasonic sensor every 100ms
+  if (millis() - startTime >= 100) {
+    // Trigger the ultrasonic sensor
+    digitalWrite(trigPin, LOW);
+    delayMicroseconds(2);
+    digitalWrite(trigPin, HIGH);
+    delayMicroseconds(10);
+    digitalWrite(trigPin, LOW);
+    
+    startTime = millis(); // Reset the timer
+  }
+
+  if (newMeasurement) {
+    newMeasurement = false;
+    float distance = (duration * 0.0343) / 2;
+
+    // Print the distance to the Serial Monitor
+    Serial.print("Distance: ");
+    Serial.println(distance);
+
+    // Update the LED state based on the measured distance
+    if (distance < thresholdDistance) {
+      digitalWrite(ledPin, HIGH);
+    } else {
+      digitalWrite(ledPin, LOW);
+    }
+  }
+}
+
+void echoISR() {
+  if (digitalRead(echoPin) == HIGH) {
+    // Rising edge: record the start time
+    startTime = micros();
+  } else {
+    // Falling edge: calculate the duration
+    duration = micros() - startTime;
+    newMeasurement = true;
+  }
+}
+```
+
+<figure><img src=".gitbook/assets/录制_2024_06_27_19_48_35_180.gif" alt=""><figcaption><p>Using ISR to detect new distance values from Ultrasonic Sensor</p></figcaption></figure>
+
+### Joystic
+
+```cpp
+const int joystickXPin = A0; // Joystick X-axis pin
+const int joystickYPin = A1; // Joystick Y-axis pin
+const int joystickButtonPin = 2; // Joystick button pin
+const int ledPins[] = {11, 12, 9, 10, 13}; // Left, Up, RGB R, Down, Right LED pins
+const int rgbLedPins[] = {9, 8, 7}; // RGB LED pins
+
+// State variables
+int joystickXValue = 0;
+int joystickYValue = 0;
+bool buttonPressed = false;
+int currentColorIndex = 0;
+unsigned long lastDebounceTime = 0;  // Last debounce time
+unsigned long debounceDelay = 100;    // Debounce delay
+
+void setup() {
+  // Initialize serial communication
+  Serial.begin(9600);
+
+  // Initialize LED pins
+  for (int i = 0; i < 5; i++) {
+    pinMode(ledPins[i], OUTPUT);
+  }
+
+  // Initialize RGB LED pins
+  for (int i = 0; i < 3; i++) {
+    pinMode(rgbLedPins[i], OUTPUT);
+  }
+
+  // Initialize Joystick pins
+  pinMode(joystickButtonPin, INPUT_PULLUP);
+  attachInterrupt(digitalPinToInterrupt(joystickButtonPin), joystickButtonISR, FALLING);
+}
+
+void loop() {
+  // Read Joystick X and Y values
+  joystickXValue = analogRead(joystickXPin);
+  joystickYValue = analogRead(joystickYPin);
+
+  // Print current status
+  Serial.print("X: ");
+  Serial.print(joystickXValue);
+  Serial.print(" Y: ");
+  Serial.print(joystickYValue);
+  Serial.print(" Button: ");
+  Serial.println(buttonPressed ? "Pressed" : "Not Pressed");
+
+  // Control LED logic
+  controlLEDs();
+
+  delay(100);
+}
+
+void controlLEDs() {
+  // Check if in center position
+  if (joystickXValue > 450 && joystickXValue < 550 && joystickYValue > 450 && joystickYValue < 550) {
+    // Turn off all directional LEDs
+    for (int i = 0; i < 5; i++) {
+      analogWrite(ledPins[i], 0);
+    }
+  } else {
+    // Handle other direction LEDs
+    if (joystickYValue < 450) {
+      analogWrite(ledPins[0], map(450 - joystickYValue, 0, 450, 0, 255)); // Left LED
+    } else {
+      analogWrite(ledPins[0], 0);
+    }
+
+    if (joystickYValue > 550) {
+      analogWrite(ledPins[4], map(joystickYValue - 550, 0, 450, 0, 255)); // Right LED
+    } else {
+      analogWrite(ledPins[4], 0);
+    }
+
+    if (joystickXValue < 450) {
+      analogWrite(ledPins[1], map(450 - joystickXValue, 0, 450, 0, 255)); // Up LED
+    } else {
+      analogWrite(ledPins[1], 0);
+    }
+
+    if (joystickXValue > 550) {
+      analogWrite(ledPins[3], map(joystickXValue - 550, 0, 450, 0, 255)); // Down LED
+    } else {
+      analogWrite(ledPins[3], 0);
+    }
+  }
+}
+
+void joystickButtonISR() {
+  unsigned long currentTime = millis();
+  if ((currentTime - lastDebounceTime) > debounceDelay) {
+    if (joystickXValue > 450 && joystickXValue < 550 && joystickYValue > 450 && joystickYValue < 550) {
+      toggleRGBLed();
+    }
+    lastDebounceTime = currentTime;
+  }
+}
+
+void toggleRGBLed() {
+  static int colorIndex = 0;
+  const int colors[][3] = {
+    {255, 0, 0},    // Red
+    {0, 255, 0},    // Green
+    {0, 0, 255},    // Blue
+    {255, 255, 0},  // Yellow
+    {0, 255, 255},  // Cyan
+    {255, 0, 255}   // Magenta
+  };
+  colorIndex = (colorIndex + 1) % 6;
+  setColor(rgbLedPins, colors[colorIndex]);
+}
+
+void setColor(const int pins[], const int color[]) {
+  for (int i = 0; i < 3; i++) {
+    analogWrite(pins[i], color[i]);
+  }
+}
+
+```
+
+<figure><img src=".gitbook/assets/录制_2024_06_29_07_23_58_141.gif" alt=""><figcaption><p>Joystic Controller Design (with Debouncing)</p></figcaption></figure>
