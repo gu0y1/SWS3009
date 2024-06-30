@@ -1,4 +1,6 @@
-# Arduino Mega
+# Day 2: Arduino Mega
+
+This material is designed as supplementary to the Day 2 Slides. You should not use this material without first reading the slides and trying out by yourself. Instead, refer to this material only if you encounter issues or bugs while following the slides.
 
 ## LED Task
 

@@ -2,7 +2,7 @@
 description: Debugging Material
 ---
 
-# Pi Setup Guide
+# Day 1: Pi Setup Guide
 
 This material is designed as supplementary to the Day 1 Lab Handout. You should not use this material without first reading the handout. Instead, refer to this material only if you encounter issues or bugs while following the handout.
 
@@ -56,7 +56,7 @@ Select the "Interfaces" tab and enable:&#x20;
 * SSH (you should have enabled)
 * VNC
 
-<mark style="color:orange;">If you did not see the camera at this stage, it is OK! We will guide you in</mark> [<mark style="color:purple;">**C6.1**</mark>](pi-setup-guide.md#c6.1-running-rpicam-hello)<mark style="color:orange;">.</mark>
+<mark style="color:orange;">If you did not see the camera at this stage, it is OK! We will guide you in</mark> [<mark style="color:purple;">**C6.1**</mark>](day-1-pi-setup-guide.md#c6.1-running-rpicam-hello)<mark style="color:orange;">.</mark>
 
 You should reboot your Raspberry Pi after changing the above configurations,  run `sudo reboot` to restart your Raspberry Pi.
 
