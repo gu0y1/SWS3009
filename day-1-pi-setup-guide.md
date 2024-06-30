@@ -76,7 +76,7 @@ You should see if your RPi Camera can work correctly:
 
 However, if you see the following outputs, meaning your RPi Camera did NOT set up correctly yet.
 
-<figure><img src=".gitbook/assets/image.png" alt=""><figcaption><p>Bitvise Terminal (wrong response)</p></figcaption></figure>
+<figure><img src=".gitbook/assets/image (1).png" alt=""><figcaption><p>Bitvise Terminal (wrong response)</p></figcaption></figure>
 
 ### <mark style="color:purple;">Set Up RPi Camera</mark>
 
