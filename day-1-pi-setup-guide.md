@@ -1,5 +1,5 @@
 ---
-description: Debugging Material
+description: Debugging Material for Day 1 (Released on 2 July 2024)
 ---
 
 # Day 1: Pi Setup Guide

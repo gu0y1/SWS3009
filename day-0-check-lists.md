@@ -1,5 +1,7 @@
 ---
-description: The check lists of materials released by SWS3009 Teaching Team
+description: >-
+  The check lists of materials released by SWS3009 Teaching Team (on 17 June
+  2024)
 ---
 
 # Day 0: Check Lists
