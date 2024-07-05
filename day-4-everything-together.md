@@ -30,7 +30,7 @@ sudo apt install -y curl wget tar
 Download the latest version of the Arduino IDE from the official Arduino website. You can use the following command:
 
 ```sh
-wget https://www.comp.nus.edu.sg/~guoyi/tutorial/cg2111a/wget/arduino-1.8.19-linuxarm.tar.xz
+wget https://www.comp.nus.edu.sg/~guoyi/tutorial/cg2111a/wget/arduino-1.8.19-linuxaarch64.tar.xz
 ```
 
 #### 4. Extract the Files
@@ -38,7 +38,7 @@ wget https://www.comp.nus.edu.sg/~guoyi/tutorial/cg2111a/wget/arduino-1.8.19-lin
 Once the download is complete, extract the downloaded file:
 
 ```sh
-tar -xf arduino-1.8.19-linuxarm.tar.xz
+tar -xf arduino-1.8.19-linuxaarch64.tar.xz
 ```
 
 #### 5. Install the Arduino IDE
