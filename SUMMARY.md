@@ -13,3 +13,14 @@
 * [Group 2](10-july-consultation/group-2.md)
 * [Group 3](10-july-consultation/group-3.md)
 * [Group 4](10-july-consultation/group-4.md)
+* [Group 5](10-july-consultation/group-5.md)
+* [Group 6](10-july-consultation/group-6.md)
+* [Group 7](10-july-consultation/group-7.md)
+* [Group 8](10-july-consultation/group-8.md)
+* [Group 9](10-july-consultation/group-9.md)
+* [Group 10](10-july-consultation/group-10.md)
+* [Group 11](10-july-consultation/group-11.md)
+
+## Group 12
+
+* [Group 17](group-12/group-17.md)
